@@ -23,16 +23,16 @@ pause
 :loop
 
 cls
+set "outputFile=avrdude_output.txt"
 color 0e
 echo ****   FLASHING HIGH FUSE   ****
-avrdude -c c232hm -p m644p -U hfuse:w:0x9c:m
+avrdude -c c232hm -p m644p -F -U hfuse:w:0x9c:m >> "%outputFile%" 2>&1
 color 0d
 echo ****   FLASHING LOW FUSE   ****
-avrdude -c c232hm -p m644p -U lfuse:w:0xff:m
+avrdude -c c232hm -p m644p -F -U lfuse:w:0xff:m >> "%outputFile%" 2>&1
 color 0a
 echo ****   FLASHING FIRMWARE   ****
-set "outputFile=avrdude_output.txt"
-avrdude -c c232hm -p m644p -U flash:w:atmega644pa-12mhz_2048.hex:i > "%outputFile%" 2>&1
+avrdude -c c232hm -p m644p -F -U flash:w:atmega644pa-12mhz_2048.hex:i >> "%outputFile%" 2>&1
 echo.   
 
 :: Check for multiple success patterns
